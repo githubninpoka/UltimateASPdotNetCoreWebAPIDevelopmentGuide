@@ -8,8 +8,8 @@ namespace HotelListing.API.Data
         {
             
         }
-        public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<Country> Countries { get; set; }
+        public DbSet<Hotel> Hotel { get; set; }
+        public DbSet<Country> Country { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelListing.API.Migrations
 {
     [DbContext(typeof(HotelListingDbContext))]
-    [Migration("20240704184308_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240708180736_changed_ilist_in_type_Country")]
+    partial class changed_ilist_in_type_Country
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,27 @@ namespace HotelListing.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Country");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Jamaica",
+                            ShortName = "JM"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Nederland",
+                            ShortName = "NL"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Deutschland",
+                            ShortName = "GM"
+                        });
                 });
 
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
@@ -71,13 +91,39 @@ namespace HotelListing.API.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotel");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "beach 1",
+                            CountryId = 1,
+                            Name = "Resort",
+                            Rating = 4.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Apeldoorn",
+                            CountryId = 2,
+                            Name = "bilderberg",
+                            Rating = 3.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Paderborn",
+                            CountryId = 3,
+                            Name = "wewelsburg",
+                            Rating = 2.0
+                        });
                 });
 
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
                 {
                     b.HasOne("HotelListing.API.Data.Country", "Country")
-                        .WithMany("Hotels")
+                        .WithMany("Hotel")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -87,7 +133,7 @@ namespace HotelListing.API.Migrations
 
             modelBuilder.Entity("HotelListing.API.Data.Country", b =>
                 {
-                    b.Navigation("Hotels");
+                    b.Navigation("Hotel");
                 });
 #pragma warning restore 612, 618
         }

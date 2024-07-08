@@ -39,7 +39,7 @@ namespace HotelListing.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Country");
 
                     b.HasData(
                         new
@@ -88,7 +88,7 @@ namespace HotelListing.API.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Hotels");
+                    b.ToTable("Hotel");
 
                     b.HasData(
                         new
@@ -120,7 +120,7 @@ namespace HotelListing.API.Migrations
             modelBuilder.Entity("HotelListing.API.Data.Hotel", b =>
                 {
                     b.HasOne("HotelListing.API.Data.Country", "Country")
-                        .WithMany("Hotels")
+                        .WithMany("Hotel")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -130,7 +130,7 @@ namespace HotelListing.API.Migrations
 
             modelBuilder.Entity("HotelListing.API.Data.Country", b =>
                 {
-                    b.Navigation("Hotels");
+                    b.Navigation("Hotel");
                 });
 #pragma warning restore 612, 618
         }
