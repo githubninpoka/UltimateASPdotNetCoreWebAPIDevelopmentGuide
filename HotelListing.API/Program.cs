@@ -1,5 +1,8 @@
 
+using HotelListing.API.Configurations;
 using HotelListing.API.Data;
+using HotelListing.API.Interfaces;
+using HotelListing.API.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -34,6 +37,12 @@ namespace HotelListing.API
 
             builder.Host.UseSerilog((context, loggerconfiguration) => loggerconfiguration.WriteTo.Console()
             .ReadFrom.Configuration(context.Configuration));
+
+            builder.Services.AddAutoMapper(typeof(MapperConfig));
+
+            // TODO: figure out what is going on here and check meaning of AddScoped
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
 
             var app = builder.Build();
 
