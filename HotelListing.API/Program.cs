@@ -43,6 +43,7 @@ namespace HotelListing.API
             // TODO: figure out what is going on here and check meaning of AddScoped
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
+            builder.Services.AddScoped<IHotelsRepository, HotelsRepository>();
 
             var app = builder.Build();
 
